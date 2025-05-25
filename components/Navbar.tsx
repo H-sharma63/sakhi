@@ -1,100 +1,60 @@
-"use client";
-import { useState, useEffect } from "react";
-import Image from "next/image";
-import Link from "next/link";
-import {
-  Search as LucidSearch,
-  ShoppingCart as LucidShoppingCart,
-  User as LucidUser,
-} from "lucide-react";
+'use client'
 
-export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
+import React, { FC, useState } from 'react';
+import { ShoppingCart, User, Search, Menu, X } from 'lucide-react';
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 10);
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  const logoSrc = scrolled ? "/logo-light.png" : "/logo-dark.png";
-  const iconColor = scrolled ? "#000000" : "#800000";
+const Navbar: FC = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${
-        scrolled
-          ? "bg-[#550000cc] text-black"
-          : "bg-transparent text-[#800000]"
-      }`}
-    >
-      <div className="w-full max-w-7xl mx-auto flex justify-between items-center h-full px-4 md:px-6 py-3">
-        {/* Logo */}
-        <div className="flex items-center space-x-4">
-          <Link href="/">
-            <Image
-              src={logoSrc}
-              alt="Sakhi Logo"
-              width={110}
-              height={35}
-              className="object-contain"
-              priority
+    <div className="fixed -left-[10px] -top-[10px] right-[5px] w-[calc(100%+10px)] h-auto bg-[#550000] shadow-lg">
+      <div className="relative w-full">
+        <div className="flex flex-row justify-between items-center max-w-screen-xl mx-auto px-4 py-4 pt-[10px]">
+          {/* Left side: Search Icon */}
+          <div className="flex-1 pt-[20px] pl-[10px]">
+            <div className="flex items-center justify-center bg-white bg-opacity-70 rounded-full
+              w-[30px] h-[30px] ml-[15px] cursor-pointer 
+              hover:bg-opacity-90 transition-all duration-300">
+              <Search className="h-4 w-4 text-[#F6F1E7] stroke-[3px]" />
+            </div>
+          </div>
+
+          {/* Center: Logo */}
+          <div className="absolute left-1/2 transform -translate-x-1/2 pt-[20px]">
+            <img 
+              src="/logo.svg" 
+              alt="Logo" 
+              className="h-[40px] w-[40px] object-contain" 
             />
-          </Link>
+          </div>
+
+          {/* Desktop Cart & User Icons */}
+          <div className="flex flex-1 justify-end pt-[20px] pr-[20px] space-x-[10px]">
+            <div className="flex items-center justify-center bg-white bg-opacity-70 rounded-full
+              w-[30px] h-[30px] cursor-pointer 
+              hover:bg-opacity-90 transition-all duration-300">
+              <ShoppingCart className="h-4 w-4 text-[#F6F1E7] stroke-[3px]" />
+            </div>
+            <div className="flex items-center justify-center bg-white bg-opacity-70 rounded-full
+              w-[30px] h-[30px] cursor-pointer 
+              hover:bg-opacity-90 transition-all duration-300">
+              <User className="h-4 w-4 text-[#F6F1E7] stroke-[3px]" />
+            </div>
+          </div>
         </div>
 
-        {/* Nav Menu */}
-        <nav className="md:flex space-x-6 text-lg font-medium">
-          <Link
-            href="/shop"
-            className={`hover:text-[#560000] transition-colors ${
-              scrolled ? "text-black" : "text-[#800000]"
-            }`}
-          >
-            Shop
-          </Link>
-          <Link
-            href="/profile"
-            className={`hover:text-[#560000] transition-colors ${
-              scrolled ? "text-black" : "text-[#800000]"
-            }`}
-          >
-            Profile
-          </Link>
-          <Link
-            href="/cart"
-            className={`hover:text-[#560000] transition-colors ${
-              scrolled ? "text-black" : "text-[#800000]"
-            }`}
-          >
-            Cart
-          </Link>
-          <Link
-            href="/login"
-            className={`hover:text-[#560000] transition-colors ${
-              scrolled ? "text-black" : "text-[#800000]"
-            }`}
-          >
-            Login
-          </Link>
-        </nav>
-
-        {/* Icons */}
-        <div className="flex items-center space-x-4">
-          <LucidSearch
-            size={24}
-            style={{ strokeWidth: 3, color: iconColor }}
-          />
-          <LucidShoppingCart
-            size={24}
-            style={{ strokeWidth: 3, color: iconColor }}
-          />
-          <LucidUser
-            size={24}
-            style={{ strokeWidth: 3, color: iconColor }}
-          />
+        {/* Desktop Menu */}
+        <div className="bg-[#550000] pt-[15px] pb-[10px]">
+          <div className="flex flex-wrap justify-center space-x-[50px] py-3 px-2">
+            <a href="/" className="no-underline font-bold text-[16px] lg:text-[22px] text-[#F6F1E7] px-3 py-2 rounded-md transition-colors">Home</a>
+            <a href="/about" className="no-underline font-bold text-[16px] lg:text-[22px] text-[#F6F1E7] px-3 py-2 rounded-md transition-colors">About</a>
+            <a href="/services" className="no-underline font-bold text-[16px] lg:text-[22px] text-[#F6F1E7] px-3 py-2 rounded-md transition-colors">Services</a>
+            <a href="/contact" className="no-underline font-bold text-[16px] lg:text-[22px] text-[#F6F1E7] px-3 py-2 rounded-md transition-colors">Contact</a>
+          </div>
         </div>
       </div>
-    </header>
+    </div>
   );
-}
+};
+
+export default Navbar;
