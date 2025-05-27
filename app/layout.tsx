@@ -1,6 +1,6 @@
 import "./globals.css";
-import Navbar from "../components/Navbar";
-import { CartProvider } from "../context/CartContext";
+import { CartProvider } from "@/context/CartContext";
+import LayoutWrapper from "../components/LayoutWrapper";
 
 export const metadata = {
   title: "Sakhi",
@@ -10,12 +10,11 @@ export const metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className="bg-[#fdfcf5] text-black font-sans">
+      <body>
         <CartProvider>
-          {/* Navbar Component */}
-          <Navbar />
-          {/* Add top padding to prevent content from hiding behind fixed nav */}
-          <main className="pt-16">{children}</main>
+          <LayoutWrapper>
+            {children}
+          </LayoutWrapper>
         </CartProvider>
       </body>
     </html>

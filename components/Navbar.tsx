@@ -15,7 +15,7 @@ export interface SearchOverlayProps {
 }
 
 const Navbar: FC = () => {
-  const { setIsCartOpen } = useCart();
+  const { setIsCartOpen, isCartOpen } = useCart();
   const [showNavbar, setShowNavbar] = useState(true);
   const [showSearch, setShowSearch] = useState(false);
   const [searchValue, setSearchValue] = useState("");
@@ -76,7 +76,7 @@ const Navbar: FC = () => {
         <div
           className={`fixed -left-[10px] -top-[10px] right-[5px] w-[calc(100%+10px)] h-auto bg-[#550000] shadow-lg z-0 transition-transform duration-300 ${
             showNavbar ? "translate-y-0" : "-translate-y-full"
-          }`}
+          } ${isCartOpen ? 'pointer-events-none cursor-default' : ''}`}
         >
           <div className="relative w-full">
             {/* Top bar with icons and logo */}

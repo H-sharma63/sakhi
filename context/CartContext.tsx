@@ -53,8 +53,15 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
       price: 5999,
       image: "https://via.placeholder.com/150",
       quantity: 1
+    },
+    {
+      id: "5",
+      name: "Banarasi Saree",
+      price: 5999,
+      image: "https://via.placeholder.com/150",
+      quantity: 1
     }
-  ];
+    ];
 
   const [items, setItems] = useState<CartItem[]>(initialItems);
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -62,6 +69,21 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   useEffect(() => {
     localStorage.setItem('cart', JSON.stringify(items));
   }, [items]);
+
+  useEffect(() => {
+    if (isCartOpen) {
+      document.body.style.overflow = 'hidden';
+      document.body.style.paddingRight = '15px'; // Prevent layout shift
+    } else {
+      document.body.style.overflow = 'unset';
+      document.body.style.paddingRight = '0px';
+    }
+
+    return () => {
+      document.body.style.overflow = 'unset';
+      document.body.style.paddingRight = '0px';
+    };
+  }, [isCartOpen]);
 
   const addItem = (item: CartItem) => {
     setItems(current => {
